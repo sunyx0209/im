@@ -25,14 +25,16 @@ public class ProtobufDecoder extends ByteToMessageDecoder {
             in.resetReaderIndex();
             return;
         }
-        byte[] bytes;
-        if (in.hasArray()) {
-            ByteBuf slice = in.slice();
-            bytes = slice.array();
-        } else {
-            bytes = new byte[length];
-            in.readBytes(bytes, 0,  length);
-        }
+//        byte[] bytes;
+//        if (in.hasArray()) {
+//            ByteBuf slice = in.slice();
+//            bytes = slice.array();
+//        } else {
+//            bytes = new byte[length];
+//            in.readBytes(bytes, 0,  length);
+//        }
+        byte[] bytes = new byte[length];
+        in.readBytes(bytes, 0,  length);
         ProtoMsg.Message message = ProtoMsg.Message.parseFrom(bytes);
         if (message != null) {
             out.add(message);
